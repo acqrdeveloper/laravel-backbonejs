@@ -4,12 +4,15 @@
 require.config({
     paths: {
         'jquery': '../bower_components/jquery/dist/jquery',
-        '_': '../bower_components/underscore/underscore',
+        'underscore': '../bower_components/underscore/underscore',
         'backbone': '../bower_components/backbone/backbone',
     },
     shim: {
+        '../bower_components/underscore/underscore': {
+            exports: '_'
+        },
         backbone: {
-            deps: ["jquery", "_"],
+            deps: ["jquery", "underscore"],
             exports: 'Backbone'
         }
     }
@@ -25,7 +28,7 @@ var items = [
 
 require([
         "jquery",
-        "_",
+        "underscore",
         "backbone",
         "../js/routers/router",
     ], function ($, _, Backbone, Router) {

@@ -2,7 +2,7 @@ define([
     "jquery",
     "underscore",
     "backbone",
-], function ($, _, Backbone) {
+], function ($,_, Backbone) {
     var ItemView = Backbone.View.extend({
         className: "item-wrap",
         eltwo: '#idTbody',

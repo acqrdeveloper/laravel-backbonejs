@@ -1,7 +1,7 @@
 define([
     "jquery",
-    "../js/lib/underscore",
-    "../js/lib/backbone",
+    "underscore",
+    "backbone",
 ], function ($, _, Backbone) {
 
     var objView = null;

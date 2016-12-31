@@ -1,5 +1,5 @@
 define([
-    "../lib/backbone",
+    "backbone",
     "../models/item",
 ], function (Backbone, Item) {
     var Cart = Backbone.Collection.extend({

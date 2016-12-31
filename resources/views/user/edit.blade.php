@@ -9,7 +9,7 @@
             <div class="panel panel-default">
                 <div class="panel-body ">
                     <div class="panel-heading panel-primary">
-                        <label class="text-primary">FORM CREATE</label>
+                        <label class="text-primary">FORM EDIT</label>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -50,6 +50,7 @@
                 </div>
             </div>
             {!! Form::close() !!}
+            {{--</form>--}}
         </div>
     </div>
 @section('custom_scripts')

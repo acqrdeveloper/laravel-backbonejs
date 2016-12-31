@@ -83,6 +83,7 @@ class UserController extends Controller implements UserInterface
     function edit($id)
     {
         // TODO: Implement edit() method.
+        return view('user.edit');
     }
 
     function update(UserRequest $request, $id)

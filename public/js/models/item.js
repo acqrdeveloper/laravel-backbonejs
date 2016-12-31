@@ -1,5 +1,5 @@
 define([
-    "../lib/backbone",
+    "backbone",
 ], function (Backbone) {
 
     var Item = Backbone.Model.extend({

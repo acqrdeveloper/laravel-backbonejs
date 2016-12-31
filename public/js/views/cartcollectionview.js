@@ -1,5 +1,5 @@
 define([
-    "../lib/backbone",
+    "backbone",
     "../views/itemcollectionview",
     "../collections/cart",
 ], function (Backbone, ItemCollectionView, Cart) {

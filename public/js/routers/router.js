@@ -1,12 +1,13 @@
 /**
  * Created by QuispeRoque on 27/12/16.
  */
-/*global define*/
 define([
+    "jquery",
+    "underscore",
     "backbone",
     "../views/cartcollectionview",
     "../class/user_class",
-], function (Backbone, CartCollectionView, UserClass) {
+], function ($, _, Backbone, CartCollectionView, UserClass) {
 
     var Router = Backbone.Router.extend({
         routes: {
@@ -14,7 +15,7 @@ define([
             'UserClass': 'loadUserClass',
         },
         initialize: function () {
-            this.loadCarts();
+            // this.loadCarts();
             this.loadUserClass();
         },
         loadCarts: function () {
