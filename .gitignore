@@ -6,3 +6,9 @@ Homestead.json
 Homestead.yaml
 .env
 /public/bower_components/
+/public/js/class/
+/public/js/collections/
+/public/js/models/
+/public/js/views/
+/app/Http/Jsons/
+/app/REST.php

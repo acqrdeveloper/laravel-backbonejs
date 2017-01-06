@@ -10,4 +10,9 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    protected function goview($view, $request, array $data = array()) {
+        $data['parentLayout'] = $request->ajax() ? 'ajaxcontent' : 'master';
+        return view($view, $data);
+    }
 }

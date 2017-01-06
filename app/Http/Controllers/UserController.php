@@ -5,94 +5,92 @@ namespace App\Http\Controllers;
 use App\Http\Interfaces\UserInterface;
 use App\Http\Requests\UserRequest;
 use App\User;
-use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Intervention\Image\Facades\Image;
 use PDOException;
 
 class UserController extends Controller implements UserInterface
 {
-//    function create()
-//    {
-//        return view('user.create');
-//    }
-//
-//    function store(UserRequest $request)
-//    {
-//        // Primero comprobaremos si estamos recibiendo todos los campos.
-//if (!$request)
-//{
-//    // Se devuelve un array errors con los errores encontrados y cabecera HTTP 422 Unprocessable Entity – [Entidad improcesable] Utilizada para errores de validación.
-//return response()->json(['errors' => array(['code' => 422, 'message' => 'Faltan datos necesarios para el proceso de alta.'])], 422);
-//}
-//
-//// Insertamos una fila en Fabricante con create pasándole todos los datos recibidos.
-//// En $request->all() tendremos todos los campos del formulario recibidos.
-//$nuevoFabricante = User::create($request->all());
-//
-//// Más información sobre respuestas en http://jsonapi.org/format/
-//// Devolvemos el código HTTP 201 Created – [Creada] Respuesta a un POST que resulta en una creación. Debería ser combinado con un encabezado Location, apuntando a la ubicación del nuevo recurso.
-//return response()->json(['status' => 'ok', 'data' => $nuevoFabricante], 201);
-//}
-//
-
-    function jsonIndex()
+    // TODO: Implement create() method.
+    function create(Request $request)
     {
-        // TODO: Implement index() method.
+        return $this->goview('user.create', $request);
+    }
+
+    // TODO: Implement index() method.
+    function index(Request $request)
+    {
         $data = User::all();
-//        return view('user.index')->with('Users', $dataList);
-        return $data;
+        return $this->goview('user.index', $request)->with('data', $data);
     }
 
-    function index()
+    function saveImage($image, $path, $requestImage)
     {
-        // TODO: Implement index() method.
-        return view('user.index');
+        //todo >> Guardar Original
+        $dateFormat = date("dmyhis");
+        //todo >> Cambiar de tamaño
+        $image->resize(240, 200);
+        $image->save($path . $dateFormat . '_' . $requestImage->getClientOriginalName());
+        $setImage = $dateFormat . '_' . $requestImage->getClientOriginalName();
+        return $setImage;
     }
 
-    function getAllById($id)
-    {
-        $data = User::findOrFail($id);
-        return $data;
-    }
-
-
-    function create()
-    {
-        // TODO: Implement create() method.
-        return view('user.create');
-    }
-
+    // TODO: Implement store() method.
     function store(UserRequest $request)
     {
-        // TODO: Implement store() method.
         try {
-            if ($request) {
-                $dataStore = User::create($request->all());
-                return response()->json(['status' => 'ok', 'data' => $dataStore], 201);
-            }
+            $user = new User();
+            $user->fill($request->only($user->getFillable()));
+            $user->save();
+            flash('created successfully', 'success');
+            return redirect()->route('rIndexUser');
         } catch (PDOException $e) {
-            return response()->json(['errors' => ['code' => 422, 'message' => 'Faltan datos necesarios para el proceso de alta.']], 422);
+            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
 
-    function show($id)
+    // TODO: Implement show() method.
+    function show(Request $request, $id)
     {
-        // TODO: Implement show() method.
+        $data = User::findOrFail($id);
+        return $this->goview('user.show', $request)->with('data', $data);
     }
 
-    function edit($id)
+    // TODO: Implement edit() method.
+    function edit(Request $request, $id)
     {
-        // TODO: Implement edit() method.
-        return view('user.edit');
+        try {
+            $data = User::findOrFail($id);
+            return $this->goview('user.edit', $request)->with('data', $data);
+        } catch (PDOException $e) {
+            return redirect()->back()->withErrors('msg_errors', $e->getMessage() . ' - ' . $e->getLine());
+        }
     }
 
+    // TODO: Implement update() method.
     function update(UserRequest $request, $id)
     {
-        // TODO: Implement update() method.
+        try {
+            $data = User::findOrFail($id);
+            $data->fill($request->only($data->getFillable()));
+            $data->save();
+            flash("updated successfully", "success");
+            return redirect()->route('rIndexUser');
+        } catch (PDOException $e) {
+            return redirect()->back()->withErrors('msg_errors', $e->getMessage() . ' - ' . $e->getLine());
+        }
     }
 
+    // TODO: Implement destroy() method.
     function destroy($id)
     {
-        // TODO: Implement destroy() method.
+        try {
+            User::destroy($id);
+            flash("deleted successfully", "success");
+            return redirect()->route('rIndexUser');
+        } catch (PDOException $e) {
+            return redirect()->back()->withErrors('msg_errors', $e->getMessage() . ' - ' . $e->getLine());
+        }
     }
 }

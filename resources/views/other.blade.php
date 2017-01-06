@@ -27,6 +27,7 @@
 
         </tbody>
     </table>
+    </div>
 
     <div id="yourcart">
 

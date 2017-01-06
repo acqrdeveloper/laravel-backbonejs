@@ -10,14 +10,21 @@ namespace App\Http\Interfaces;
 
 
 use App\Http\Requests\UserRequest;
+use Illuminate\Http\Request;
 
 interface UserInterface
 {
-    function  index();
-    function create();
+    function index(Request $request);
+
+    function create(Request $request);
+
     function store(UserRequest $request);
-    function show($id);
-    function edit($id);
-    function update(UserRequest $request,$id);
+
+    function show(Request $request, $id);
+
+    function edit(Request $request, $id);
+
+    function update(UserRequest $request, $id);
+
     function destroy($id);
 }
